@@ -1,8 +1,26 @@
+@use '../../../_variables' as *;
+
 ul {
     list-style-type: none;
+    z-index: 2;
 }
 li span{
     margin: 1rem;
+}
+
+.chosen-ingredients-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    li{
+        background-color: $grey-background;
+        border-radius: 10px;
+        padding: 7px;
+
+        &.hover{
+            background-color: $grey-background-on-hover;
+        }
+    }
 }
 
 .container{
@@ -39,4 +57,9 @@ li span{
   
 .suggestions-list li:hover {
     background-color: #f0f0f0;
+}
+
+.dropdown{
+    z-index: 1;
+    margin: 2rem 0rem 2rem 0.7rem;
 }

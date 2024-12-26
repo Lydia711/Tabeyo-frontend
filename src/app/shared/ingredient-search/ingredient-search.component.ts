@@ -1,27 +1,58 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RecipeService } from '../../services/recipes/recipe.service';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-ingredient-search',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './ingredient-search.component.html',
-  styleUrl: './ingredient-search.component.scss'
+  styleUrl: './ingredient-search.component.scss',
 })
 export class IngredientSearchComponent {
 
   searchText: FormControl = new FormControl('');
-  chosenItems: string[] = []
+  chosenIngredients: string[] = []
 
   testIngredients: string[] = ["rice", "chicken", "mango", "chocolate", "pasta", "tomato"]
   filteredItems:string[] = [];
 
-  constructor() {
-    // Subscribe to changes in the input field
+  //recipes: Recipe[] = ["5alasoona", "ba2a", "et5ana2t"];
+  recipes: string[] = ["5alasoona", "ba2a", "et5ana2t"];
+  
+
+  chosenCuisine:string = "teez";
+  cuisines:string[] = ["Japanese", "Asian", "Italian", "Mediterranean"];
+
+  strictIngredients:boolean = false;
+
+
+  selectCuisine(cuisine: string): void {
+    this.chosenCuisine = cuisine;
+    console.log(`Selected Cuisine: ${this.chosenCuisine}`);
+  }
+  
+  fetchRecipes():void{
+    const authToken = 'your-auth-token';
+    this.recipeService.getRecipes(this.chosenIngredients, this.chosenCuisine, authToken).subscribe(
+      (response) => {
+        this.recipes = response;
+        console.log('Recipes: ', this. recipes);
+      },
+      (error) => {
+        console.error('Error fetching recipes:', error);
+      }
+    )
+  }
+  
+
+  constructor(private recipeService:RecipeService) {
     this.searchText.valueChanges.subscribe(value => {
       this.filterItems(value);
     });
   }
+
 
   filterItems(query: string) {
     if (query) {
@@ -44,13 +75,13 @@ export class IngredientSearchComponent {
   addItem(){
     const inputText = this.searchText.value.trim();
     if(inputText !== ''){
-      if(!this.chosenItems.includes(inputText.toLowerCase()))
-          this.chosenItems.push(inputText);
+      if(!this.chosenIngredients.includes(inputText.toLowerCase()))
+          this.chosenIngredients.push(inputText);
       this.searchText.setValue('');
     }
   }
 
   removeItem(index:number){
-    this.chosenItems.splice(index,1);
+    this.chosenIngredients.splice(index,1);
   }
 }
