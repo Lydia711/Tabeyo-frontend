@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="autocomplete-container">
+    <div class="search-bar">
+      <input
+        id="ingredient-name"
+        type="text"
+        [formControl]="searchText"
+        class="form-control search-input"
+      />
+    </div>
+
+    <ul *ngIf="filteredItems.length > 0" class="suggestions-list">
+      <li *ngFor="let item of filteredItems" (click)="selectItem(item)">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+
+  <button (click)="addItem()" class="btn btn-primary">Add</button>
+</div>
+
+<div>
+  <ul class="search-list">
+    <li *ngFor="let item of chosenItems; let i = index" class="list-item">
+      <button (click)="removeItem(i)" class="btn btn-danger btn-sm">X</button>
+      <span>{{ item }}</span>
+    </li>
+  </ul>
+</div>
