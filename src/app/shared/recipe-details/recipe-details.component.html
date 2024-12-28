@@ -1,0 +1,11 @@
+<div class="recipe-details">
+  <h1>{{recipe.label}}</h1>
+  <div style="display: flex; justify-content: center; gap:4px">
+
+    <p class="hours" *ngIf="splitMinutes().hours != 0">{{splitMinutes().hours}} hrs</p>
+    <p class="minutes" *ngIf="splitMinutes().minutes != 0">{{splitMinutes().minutes}} Mins</p>
+    <p>-</p>
+    <p class="energy">{{recipe.totalNutrients['ENERC_KCAL'].quantity}} {{recipe.totalNutrients['ENERC_KCAL'].unit}}</p>
+
+  </div>
+</div>

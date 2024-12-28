@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RecipeService } from '../../services/recipes/recipe.service';
+import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../models/recipe.model';
 
 @Component({
