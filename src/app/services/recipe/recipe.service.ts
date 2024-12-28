@@ -10,13 +10,13 @@ export class RecipeService {
 
   getRecipes(ingredients: string[], cuisine: string, authToken:String){
     const params = {
-      ingredients: ingredients.join(', '), // Join ingredients with a comma
+      ingredients: ingredients.join(', '),
       cuisine: cuisine,
     };
 
     const headers = {
-      'Authorization': `Bearer ${authToken}`, // Token for authentication
-      'Content-Type': 'application/json', // Standard header for JSON
+      'Authorization': `Bearer ${authToken}`,
+      'Content-Type': 'application/json',
       "Referrer-Policy": "strict-origin-when-cross-origin"
     };
 

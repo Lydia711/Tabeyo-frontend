@@ -12,7 +12,9 @@ li span{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
     li{
+        margin-right: 10px;
         background-color: $grey-background;
         border-radius: 10px;
         padding: 7px;

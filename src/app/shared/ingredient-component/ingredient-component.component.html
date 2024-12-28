@@ -1,11 +1,29 @@
-<div class="container">
+<div class="container offcanvas-trigger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
 
     <div class="image-cropper">
-        <img src="https://www.acouplecooks.com/wp-content/uploads/2021/03/Shrimp-Stir-Fry-076.jpg" >
+        <img [src]="recipe.image" >
     </div>
     <div class="text">
-        <h1>Title</h1>
-        <p class="time">1h 30 mins</p>
-        <p>description</p>
+      <h2>{{recipe.label}}</h2>
+
+      <div style="display: flex; justify-content: center; gap:4px">
+
+      <p class="hours" *ngIf="splitMinutes().hours != 0">{{splitMinutes().hours}} hrs</p>
+      <p class="minutes" *ngIf="splitMinutes().minutes != 0">{{splitMinutes().minutes}} Mins</p>
+        <p>-</p>
+      <p class="energy">{{recipe.totalNutrients['ENERC_KCAL'].quantity}} {{recipe.totalNutrients['ENERC_KCAL'].unit}}</p>
+
+      </div>
+
+      <p class="cautions" *ngIf="recipe.cautions.length !== null">Contains: {{getCautions()}}</p>
     </div>
+</div>
+
+<div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <app-recipe-details [recipe]="recipe"></app-recipe-details>
+  </div>
 </div>

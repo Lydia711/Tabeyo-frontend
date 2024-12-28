@@ -1,1 +1,3 @@
-<p>fetched-recipes works!</p>
+@for(recipe of recipes; track recipe.label){
+  <app-ingredient-component [recipe]="recipe"></app-ingredient-component>
+}

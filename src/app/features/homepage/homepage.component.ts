@@ -5,7 +5,7 @@ import { FetchedRecipesComponent } from '../../shared/fetched-recipes/fetched-re
 
 @Component({
   selector: 'app-homepage',
-  imports: [IngredientSearchComponent, IngredientComponentComponent, FetchedRecipesComponent],
+  imports: [IngredientSearchComponent, FetchedRecipesComponent, IngredientComponentComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
