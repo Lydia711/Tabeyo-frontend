@@ -61,7 +61,12 @@ li span{
     background-color: #f0f0f0;
 }
 
-.dropdown{
-    z-index: 1;
-    margin: 2rem 0rem 2rem 0.7rem;
+.dropdown {
+  z-index: 1;
+  margin: 2rem 0rem 2rem 0.7rem;
+
+  .dropdown-menu {
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
 }

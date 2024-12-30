@@ -4,19 +4,22 @@
       <input
         id="ingredient-name"
         type="text"
-        [formControl]="searchText"
+        [formControl]="searchControl"
         class="form-control search-input"
+        placeholder="Add your ingredients"
       />
     </div>
 
-    <ul *ngIf="filteredItems.length > 0" class="suggestions-list">
-      <li *ngFor="let item of filteredItems" (click)="selectItem(item)">
-        {{ item }}
+    <ul *ngIf="showSuggestions && filteredIngredients.length > 0" class="suggestions-list">
+      <li *ngFor="let ingredient of filteredIngredients; let i = index"
+          [class.selected]="i === selectedIndex"
+          (click)="addIngredient(ingredient)">
+        {{ ingredient }}
       </li>
     </ul>
   </div>
 
-  <button (click)="fetchRecipes()" class="btn btn-primary">Search</button>
+  <!--<button (click)="fetchRecipes()" class="btn btn-primary">Search</button>-->
   
   <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,19 +36,15 @@
       Show recipes with ONLY chosen ingredients
     </label>
   </div>
-
 </div>
 
-<p>{{strictIngredients}}</p>
-
-<p *ngFor="let recipe of recipes">{{recipe}}</p>
-
-
 <div>
-  <ul class="search-list chosen-ingredients-container">
+  <ul class="search-list chosen-ingredients-container"  *ngIf="chosenIngredients">
     <li *ngFor="let item of chosenIngredients; let i = index" class="list-item">
       <button (click)="removeItem(i)" class="btn btn-sm">X</button>
       <span>{{ item }}</span>
     </li>
   </ul>
 </div>
+
+<p *ngFor="let recipe of fetchedRecipes">{{recipe.label}}</p>

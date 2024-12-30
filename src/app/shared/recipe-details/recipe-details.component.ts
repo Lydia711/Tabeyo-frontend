@@ -1,41 +1,32 @@
 import { Component, Input } from '@angular/core';
 import { Recipe } from '../../models/recipe.model';
+import { splitMinutes, getCautions } from '../../../utils/helperFunctions';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-details',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.scss'
 })
 export class RecipeDetailsComponent {
+
+  splitMinutes = splitMinutes;
+  getCautions = getCautions;
+
   @Input() recipe: Recipe = {
-    uri: '',
-    label: '',
-    image: '',
-    source: '',
-    url: '',
-    yield: 0,
+    label: "",
+    image: "",
+    url: "",
     dietLabels: [],
+    yield: 0,
     healthLabels: [],
     cautions: [],
     ingredientLines: [],
-    ingredients: [],
     calories: 0,
-    totalWeight: 0,
     totalTime: 0,
-    totalNutrients: {
-      energy: { label: 'Energy', quantity: 0, unit: 'kcal' },
-      fat: { label: 'Fat', quantity: 0, unit: 'g' },
-      protein: { label: 'Protein', quantity: 0, unit: 'g' },
-      carbs: { label: 'Carbohydrates', quantity: 0, unit: 'g' }
-    },
-    totalDaily: {
-      energy: { label: 'Energy', quantity: 0, unit: '%' },
-      fat: { label: 'Fat', quantity: 0, unit: '%' },
-      protein: { label: 'Protein', quantity: 0, unit: '%' },
-      carbs: { label: 'Carbohydrates', quantity: 0, unit: '%' }
-    },
-    digest: []
+    cuisineType: [],
+    totalNutrients: {}
   };
 
 

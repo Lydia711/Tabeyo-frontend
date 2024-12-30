@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../models/recipe.model';
+import { HttpClient } from '@angular/common/http';
+import * as AvailableIngredients from '../../../assets/ingredients.json';
+import * as Cuisines from '../../../assets/cuisines.json';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-ingredient-search',
@@ -10,78 +14,68 @@ import { Recipe } from '../../models/recipe.model';
   templateUrl: './ingredient-search.component.html',
   styleUrl: './ingredient-search.component.scss',
 })
-export class IngredientSearchComponent {
+export class IngredientSearchComponent implements OnInit {
 
-  searchText: FormControl = new FormControl('');
-  chosenIngredients: string[] = []
+  ingredients: string[] = [];
+  filteredIngredients: string[] = [];
+  searchControl = new FormControl('');
+  showSuggestions = false;
+  selectedIndex = -1;
+  chosenIngredients:string[] = []
+  chosenCuisine:string = "";
+  cuisines:string[] = [];
 
-  testIngredients: string[] = ["rice", "chicken", "mango", "chocolate", "pasta", "tomato"]
-  filteredItems:string[] = [];
+  fetchedRecipes: Recipe[] = [];
+  strictIngredients: boolean = false;
 
-  //recipes: Recipe[] = ["5alasoona", "ba2a", "et5ana2t"];
-  recipes: string[] = ["5alasoona", "ba2a", "et5ana2t"];
-  
+  ngOnInit(): void {
+    /*this.availableIngredients = (AvailableIngredients as any).ingredients;*/
+    this.cuisines = (Cuisines as any).cuisines;
 
-  chosenCuisine:string = "teez";
-  cuisines:string[] = ["Japanese", "Asian", "Italian", "Mediterranean"];
+    this.loadIngredients();
 
-  strictIngredients:boolean = false;
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.filterIngredients(searchTerm ?? '');
+    });
+  }
 
+  private async loadIngredients() {
+    this.ingredients = AvailableIngredients.ingredients;
+    this.filteredIngredients = [...this.ingredients]; 
+  }
+
+  private filterIngredients(searchTerm: string) {
+    if (!searchTerm) {
+      this.filteredIngredients = [...this.ingredients];
+      this.showSuggestions = false;
+      return;
+    }
+
+    searchTerm = searchTerm.toLowerCase();
+    this.filteredIngredients = this.ingredients.filter(ingredient =>
+      ingredient.toLowerCase().includes(searchTerm)
+    );
+    this.showSuggestions = true;
+  }
 
   selectCuisine(cuisine: string): void {
     this.chosenCuisine = cuisine;
     console.log(`Selected Cuisine: ${this.chosenCuisine}`);
   }
-  
-  fetchRecipes():void{
-    const authToken = 'your-auth-token';
-    this.recipeService.getRecipes(this.chosenIngredients, this.chosenCuisine, authToken).subscribe(
-      (response) => {
-        this.recipes = response;
-        console.log('Recipes: ', this. recipes);
-      },
-      (error) => {
-        console.error('Error fetching recipes:', error);
-      }
-    )
-  }
-  
 
-  constructor(private recipeService:RecipeService) {
-    this.searchText.valueChanges.subscribe(value => {
-      this.filterItems(value);
-    });
-  }
-
-
-  filterItems(query: string) {
-    if (query) {
-      this.filteredItems = this.testIngredients.filter(item =>
-        item.toLowerCase().includes(query.toLowerCase())
-      );
-    } else {
-      this.filteredItems = [];
+  addIngredient(ingredient: string) {
+    if (!this.chosenIngredients.includes(ingredient)) {
+      this.chosenIngredients.push(ingredient);
     }
+    this.searchControl.setValue('');
+    this.showSuggestions = false;
+    this.selectedIndex = -1;
   }
 
-  
-  selectItem(item: string) {
-    this.searchText.setValue(item);
-    this.filteredItems = [];
-    this.addItem();
-  }
-
-
-  addItem(){
-    const inputText = this.searchText.value.trim();
-    if(inputText !== ''){
-      if(!this.chosenIngredients.includes(inputText.toLowerCase()))
-          this.chosenIngredients.push(inputText);
-      this.searchText.setValue('');
-    }
-  }
-
-  removeItem(index:number){
-    this.chosenIngredients.splice(index,1);
+  removeItem(index: number) {
+    this.chosenIngredients.splice(index, 1);
   }
 }
