@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../models/recipe.model';
+import { SearchParams } from '../../models/search-params.model';
 import { HttpClient } from '@angular/common/http';
 import * as AvailableIngredients from '../../../assets/ingredients.json';
 import * as Cuisines from '../../../assets/cuisines.json';
@@ -15,6 +16,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   styleUrl: './ingredient-search.component.scss',
 })
 export class IngredientSearchComponent implements OnInit {
+
+  @Output() searchTriggered = new EventEmitter<SearchParams>();
 
   ingredients: string[] = [];
   filteredIngredients: string[] = [];
@@ -29,9 +32,8 @@ export class IngredientSearchComponent implements OnInit {
   strictIngredients: boolean = false;
 
   ngOnInit(): void {
-    /*this.availableIngredients = (AvailableIngredients as any).ingredients;*/
-    this.cuisines = (Cuisines as any).cuisines;
 
+    this.loadCuisines();
     this.loadIngredients();
 
     this.searchControl.valueChanges.pipe(
@@ -45,6 +47,9 @@ export class IngredientSearchComponent implements OnInit {
   private async loadIngredients() {
     this.ingredients = AvailableIngredients.ingredients;
     this.filteredIngredients = [...this.ingredients]; 
+  }
+  private async loadCuisines() {
+    this.cuisines = (Cuisines as any).cuisines;
   }
 
   private filterIngredients(searchTerm: string) {
@@ -78,4 +83,19 @@ export class IngredientSearchComponent implements OnInit {
   removeItem(index: number) {
     this.chosenIngredients.splice(index, 1);
   }
+
+
+  // TO-DO: fetch recipes
+  fetchRecipes() {
+    var params: SearchParams = {
+      ingredients: this.chosenIngredients,
+      cuisine: this.chosenCuisine,
+      strictSearch: false
+    }
+    this.searchTriggered.emit(params);
+  }
+}
+
+function Output(): (target: IngredientSearchComponent, propertyKey: "searchTriggered") => void {
+    throw new Error('Function not implemented.');
 }
