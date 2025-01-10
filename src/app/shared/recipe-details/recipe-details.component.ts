@@ -13,6 +13,7 @@ export class RecipeDetailsComponent {
 
   splitMinutes = splitMinutes;
   getCautions = getCautions;
+  macroNutrients: string[] = ['PROCNT', 'FAT', 'CHOCDF'];
 
   @Input() recipe: Recipe = {
     label: "",

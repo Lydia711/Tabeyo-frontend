@@ -1,12 +1,17 @@
 @use '../../../_variables.scss' as *;
-
-.image-cropper{
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.offcanvas {
+  background-image: url('../../../assets/images/marble.jpg');
+  background-size: cover; /* Ensures the image covers the whole panel */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+.image-cropper {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .image-cropper img{
     width: 200px;
