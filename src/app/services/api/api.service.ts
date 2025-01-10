@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,18 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // GET generic request
   get<T>(url:string, params?: {[key: string]: string | number }, headers?: { [key: string]: string }): Observable<T> {
     const httpParams = new HttpParams({ fromObject: params || {} });
     const httpHeaders = new HttpHeaders(headers || {});
-    return this.http.get<T>(`${this.apiUrl}/${url}`, { params: httpParams, headers: httpHeaders });
+
+    return this.http.get<T>(`${this.apiUrl}/${url}`, { params: httpParams, headers: httpHeaders })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('API request failed:', error);
+          console.error('Error status:', error.status);
+          console.error('Error message:', error.message);
+          return throwError(() => new Error('An error occurred while fetching data.'));
+        })
+      );
   }
 }

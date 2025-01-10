@@ -3,7 +3,7 @@ export interface Recipe {
   image: string;
   url: string;
   dietLabels: string[];
-  yield: number;
+  portions: number;
   healthLabels: string[];
   cautions: string[];
   ingredientLines: string[];
@@ -11,6 +11,7 @@ export interface Recipe {
   totalTime: number;
   cuisineType: string[];
   totalNutrients: Nutrients;
+  missingIngredients: string[];
 }
 
 

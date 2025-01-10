@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../models/recipe.model';
@@ -24,20 +24,19 @@ export class IngredientSearchComponent implements OnInit {
   searchControl = new FormControl('');
   showSuggestions = false;
   selectedIndex = -1;
-  chosenIngredients:string[] = []
-  chosenCuisine:string = "";
+  chosenIngredients: string[] = [];
+  chosenCuisine:string = "Pick a cuisine";
   cuisines:string[] = [];
 
   fetchedRecipes: Recipe[] = [];
-  strictIngredients: boolean = false;
+  strictSearch: boolean = false;
 
   ngOnInit(): void {
-
     this.loadCuisines();
     this.loadIngredients();
 
     this.searchControl.valueChanges.pipe(
-      debounceTime(300),
+      debounceTime(200),
       distinctUntilChanged()
     ).subscribe(searchTerm => {
       this.filterIngredients(searchTerm ?? '');
@@ -80,22 +79,37 @@ export class IngredientSearchComponent implements OnInit {
     this.selectedIndex = -1;
   }
 
-  removeItem(index: number) {
-    this.chosenIngredients.splice(index, 1);
+  removeItem(itemToRemove: string): void {
+    this.chosenIngredients = this.chosenIngredients.filter(
+      item => item !== itemToRemove
+    );
   }
 
-
+  trackByFn(index: number, item: string): string {
+    return item;
+  }
+  toggleStrictSearch(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.strictSearch = inputElement.checked;
+  }
   // TO-DO: fetch recipes
-  fetchRecipes() {
+  startSearch() {
+    if (!this.chosenIngredients) {
+      return;
+    }
+
+    /*if (!Array.isArray(this.chosenIngredients)) {
+      console.log('chosenIngredients is not an array:', this.chosenIngredients);
+      return;
+    } else {
+      console.log("it's an array")
+    }*/
+
     var params: SearchParams = {
-      ingredients: this.chosenIngredients,
-      cuisine: this.chosenCuisine,
-      strictSearch: false
+      ingredients: [...this.chosenIngredients],
+      cuisine: this.cuisines.includes(this.chosenCuisine) ? this.chosenCuisine : "",
+      strictSearch: this.strictSearch
     }
     this.searchTriggered.emit(params);
   }
-}
-
-function Output(): (target: IngredientSearchComponent, propertyKey: "searchTriggered") => void {
-    throw new Error('Function not implemented.');
 }

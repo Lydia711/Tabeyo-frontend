@@ -20,7 +20,7 @@ export class RecipeComponentComponent {
     image: "https://example.com/mango_rice_pudding.jpg",
     url: "https://example.com/mango-rice-pudding-recipe",
     dietLabels: ["Vegetarian", "Gluten-Free"],
-    yield: 4,
+    portions: 4,
     healthLabels: ["Low-Fat", "Dairy-Free"],
     cautions: ["Tree Nuts", "deez nuts", "deez other nuts"],
     ingredientLines: [
@@ -60,7 +60,8 @@ export class RecipeComponentComponent {
         quantity: 3,
         unit: "g"
       }
-    }
+    },
+    missingIngredients:[]
   };
 
 }

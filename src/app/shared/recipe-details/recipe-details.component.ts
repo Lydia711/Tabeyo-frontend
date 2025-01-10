@@ -19,14 +19,15 @@ export class RecipeDetailsComponent {
     image: "",
     url: "",
     dietLabels: [],
-    yield: 0,
+    portions: 0,
     healthLabels: [],
     cautions: [],
     ingredientLines: [],
     calories: 0,
     totalTime: 0,
     cuisineType: [],
-    totalNutrients: {}
+    totalNutrients: {},
+    missingIngredients: []
   };
 
 

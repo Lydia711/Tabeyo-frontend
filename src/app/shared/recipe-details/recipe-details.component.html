@@ -5,7 +5,19 @@
     <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
     <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
     <p>-</p>
-    <p class="energy" *ngIf="recipe.totalNutrients['ENERC_KCAL'] !== null">{{recipe.totalNutrients["ENERC_KCAL"].quantity}} {{recipe.totalNutrients["ENERC_KCAL"].unit}}</p>
+    <p class="energy" *ngIf="recipe.totalNutrients['ENERC_KCAL'] !== null">{{recipe.calories}} {{recipe.totalNutrients["ENERC_KCAL"].unit}}</p>
 
+    <p *ngIf="recipe.missingIngredients.length !== 0">missing ingredients: {{recipe.missingIngredients}}</p>
+  </div>
+  <div class="steps">
+
+      @for(step of recipe.ingredientLines; track $index){
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              {{step}}
+            </label>
+        </div>
+      }
   </div>
 </div>
