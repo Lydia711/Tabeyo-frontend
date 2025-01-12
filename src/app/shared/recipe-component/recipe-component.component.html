@@ -1,4 +1,4 @@
-<div class="container offcanvas-trigger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+<div  class="container offcanvas-trigger" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#offcanvas-' + recipe.url" [attr.aria-controls]="'offcanvas-' + recipe.url">
 
     <div class="image-cropper">
         <img [src]="recipe.image" >
@@ -19,11 +19,6 @@
       <p class="cautions" *ngIf="recipe.cautions.length !== 0">Contains: {{getCautions(recipe)}}</p>
 </div>
 
-<div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <app-recipe-details [recipe]="recipe"></app-recipe-details>
-  </div>
-</div>
+<app-recipe-details [recipe]="recipe"></app-recipe-details>
+
+

@@ -1,10 +1,5 @@
 @use '../../../_variables.scss' as *;
-.offcanvas {
-  background-image: url('../../../assets/images/marble.jpg');
-  background-size: cover; /* Ensures the image covers the whole panel */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-}
+
 .image-cropper {
   width: 200px;
   height: 200px;
@@ -48,9 +43,6 @@
   }
 }
 
-.time{
-    font-style: italic;
-}
 .cautions {
   overflow: hidden;
   text-overflow: ellipsis;

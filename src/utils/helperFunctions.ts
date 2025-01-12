@@ -8,3 +8,6 @@ export function splitMinutes(recipe: Recipe): { hours: number; minutes: number }
 export function getCautions(recipe: Recipe): string {
   return recipe.cautions.join(', ');
 }
+export function getHealthLabels(recipe: Recipe): string {
+  return recipe.healthLabels.join(', ');
+}
