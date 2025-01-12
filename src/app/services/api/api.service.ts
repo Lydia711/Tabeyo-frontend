@@ -18,6 +18,14 @@ export class ApiService {
 
     return this.http.get<T>(`${this.apiUrl}/${url}`, { params: httpParams, headers: httpHeaders })
       .pipe(
+        tap({
+          next: (response) => {
+            console.log('Request succeeded with response:', response);
+          },
+          error: (error) => {
+            console.error('Request failed:', error);
+          }
+        }),
         catchError((error: HttpErrorResponse) => {
           console.error('API request failed:', error);
           console.error('Error status:', error.status);

@@ -8,15 +8,15 @@
 
       <div style="display: flex; justify-content: center; gap:4px">
 
-      <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
-      <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
-        <p>-</p>
-      <p class="energy">{{recipe.calories}} {{recipe.totalNutrients['ENERC_KCAL'].unit}}</p>
+        <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
+        <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
+          <p>-</p>
+        <p class="energy">{{recipe.calories}} {{recipe.totalNutrients['ENERC_KCAL'].unit}}</p>
 
       </div>
-
-      <p class="cautions" *ngIf="recipe.cautions.length !== 0">Contains: {{getCautions(recipe)}}</p>
+      <p *ngIf="recipe.missingIngredients.length !== 0" style="color:red">{{recipe.missingIngredients.length}} Missing ingredients</p>
     </div>
+      <p class="cautions" *ngIf="recipe.cautions.length !== 0">Contains: {{getCautions(recipe)}}</p>
 </div>
 
 <div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">

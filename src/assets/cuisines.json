@@ -1,5 +1,6 @@
 {
   "cuisines": [
+    "Anywhere",
     "American",
     "Asian",
     "British",
@@ -19,7 +20,6 @@
     "Middle Eastern",
     "Nordic",
     "South American",
-    "South East Asian",
-    "World"
+    "South East Asian"
   ]
 }

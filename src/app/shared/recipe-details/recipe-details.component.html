@@ -23,7 +23,6 @@
 
       <div style="display: flex; justify-content: space-between; flex-direction: row">
 
-
         @for(nutrient of recipe.totalNutrients | keyvalue; track nutrient.key; let i = $index) {
         @if(macroNutrients.includes(nutrient.key)) {
         <p class="inline">
@@ -39,12 +38,14 @@
     </div>
     <div class="recipe-info">
       
-      @for(step of recipe.ingredientLines; track $index){
+      @for(ingredientLine of recipe.ingredientLines; track $index){
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-          {{step}}
+
+        <label [style.color]="recipe.missingIngredients.includes(ingredientLine) ? 'red' : 'black'" class="form-check-label" for="flexCheckDefault">
+          {{ingredientLine}}
         </label>
+
       </div>
       }
 

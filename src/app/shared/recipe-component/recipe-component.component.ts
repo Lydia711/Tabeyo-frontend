@@ -29,7 +29,7 @@ export class RecipeComponentComponent {
       "1/4 cup sugar",
       "1 ripe mango, diced",
       "1/4 tsp salt",
-      "Optional: toasted coconut flakes for garnish"
+      "Optional: toasted coconut flakes for garnish",
     ],
     calories: 450,
     totalTime: 30,

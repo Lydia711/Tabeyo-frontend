@@ -67,7 +67,6 @@ export class IngredientSearchComponent implements OnInit {
 
   selectCuisine(cuisine: string): void {
     this.chosenCuisine = cuisine;
-    console.log(`Selected Cuisine: ${this.chosenCuisine}`);
   }
 
   addIngredient(ingredient: string) {
@@ -97,17 +96,11 @@ export class IngredientSearchComponent implements OnInit {
     if (!this.chosenIngredients) {
       return;
     }
-
-    /*if (!Array.isArray(this.chosenIngredients)) {
-      console.log('chosenIngredients is not an array:', this.chosenIngredients);
-      return;
-    } else {
-      console.log("it's an array")
-    }*/
+    console.log("params are: ", this.chosenIngredients, ", ", this.cuisines.includes(this.chosenCuisine) ? this.chosenCuisine : "", ", ", this.strictSearch);
 
     var params: SearchParams = {
       ingredients: [...this.chosenIngredients],
-      cuisine: this.cuisines.includes(this.chosenCuisine) ? this.chosenCuisine : "",
+      cuisine: (this.cuisines.includes(this.chosenCuisine) && this.chosenCuisine != "Anywhere") ? this.chosenCuisine : "",
       strictSearch: this.strictSearch
     }
     this.searchTriggered.emit(params);
