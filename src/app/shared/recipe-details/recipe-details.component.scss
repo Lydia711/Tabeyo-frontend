@@ -24,7 +24,7 @@
 }
 
 .panel {
-  background-color: lightgrey;
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-top: $panel-top-margin;
@@ -49,4 +49,7 @@ span{
 }
 .recipe-info {
   padding-left: 100px;
+}
+.ingredients{
+    padding-bottom: 15px;
 }
