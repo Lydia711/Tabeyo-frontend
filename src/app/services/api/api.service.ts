@@ -16,8 +16,14 @@ export class ApiService {
     const httpParams = new HttpParams({ fromObject: params || {} });
     const httpHeaders = new HttpHeaders(headers || {});
 
+    const queryParams = httpParams.toString();
+    const fullUrl = `${this.apiUrl}/${url}?${queryParams}`;
+
+    console.log('Full API URL:', fullUrl); // Log the full URL
+
     return this.http.get<T>(`${this.apiUrl}/${url}`, { params: httpParams, headers: httpHeaders })
       .pipe(
+
         tap({
           next: (response) => {
             console.log('Request succeeded with response:', response);

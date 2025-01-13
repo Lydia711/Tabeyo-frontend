@@ -18,7 +18,7 @@ export class HomepageComponent {
 
   async handleSearch(searchParams: SearchParams) {
     try {
-      console.log("Homepage search params:- cuisine: " + searchParams.cuisine + ", ingredients: " + searchParams.ingredients + ", strict?: " + searchParams.strictSearch);
+      console.log("Homepage search params:- cuisine: " + searchParams.cuisine + ", ingredients: " + searchParams.ingredients + ", strict?: " + searchParams.strictSearch + ", " + searchParams.healthLabels.size);
       const recipes = await this.recipeService.getRecipes(searchParams, "").subscribe({
         next: (fetchedRecipes: Recipe[]) => {
           this.recipes = fetchedRecipes;

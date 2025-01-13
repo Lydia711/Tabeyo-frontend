@@ -26,6 +26,10 @@ export class RecipeService {
       httpParams['cuisine'] = searchParams.cuisine;
     }
 
+    if (searchParams.healthLabels.size > 0) {
+      httpParams['health'] = Array.from(searchParams.healthLabels).join(',');
+    }
+
     const headers = {
       'Authorization': `Bearer ${authToken}`,
       'Content-Type': 'application/json',
@@ -39,7 +43,6 @@ export class RecipeService {
         if (!response?.recipes) {
           return [];
         }
-
         return response.recipes.map(recipe => {
           const mappedRecipe: Recipe = {
             label: recipe.label,
