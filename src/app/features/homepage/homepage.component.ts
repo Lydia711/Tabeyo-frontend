@@ -16,6 +16,8 @@ import { CommonModule } from '@angular/common';
 export class HomepageComponent {
   recipes: Recipe[] = [];
   isLoading: boolean = false;
+  noRecipesFatched: boolean = false;
+  recipeFetchError: boolean = false;
 
   constructor(private recipeService: RecipeService) { }
 
@@ -27,12 +29,18 @@ export class HomepageComponent {
       const recipes = await this.recipeService.getRecipes(searchParams, "").subscribe({
         next: (fetchedRecipes: Recipe[]) => {
           this.recipes = fetchedRecipes;
+          if (fetchedRecipes.length === 0)
+            this.noRecipesFatched = true;
+          else
+            this.noRecipesFatched = false;
         },
         error: (error) => {
           console.error('Error fetching recipes: ', error);
+          this.recipeFetchError = true;
           this.isLoading = false;
         },
         complete: () => {
+          this.recipeFetchError = false;
           this.isLoading = false;
         }
       });
