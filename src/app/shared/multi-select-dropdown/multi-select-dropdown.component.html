@@ -1,0 +1,27 @@
+<div class="dropdown position-relative">
+  <button class="btn btn-primary d-flex align-items-center gap-2"
+          type="button"
+          (click)="isOpen = !isOpen">
+    {{title}}
+    <span *ngIf="selectedItems.size > 0" class="badge bg-light text-primary">
+      {{selectedItems.size}}
+    </span>
+    <i class="bi" [ngClass]="isOpen ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+  </button>
+
+  <div class="dropdown-menu p-2"
+       [class.show]="isOpen"
+       style="max-height: 300px; overflow-y: auto; width: 250px;">
+    <div *ngFor="let item of items"
+         class="form-check py-2">
+      <input class="form-check-input"
+             type="checkbox"
+             [id]="item"
+             [checked]="selectedItems.has(item)"
+             (change)="toggleItem(item)">
+      <label class="form-check-item" [for]="item">
+        {{formatItem(item)}}
+      </label>
+    </div>
+  </div>
+</div>

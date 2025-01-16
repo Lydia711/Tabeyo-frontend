@@ -1,28 +1,19 @@
 export interface Recipe {
-  uri: string;
   label: string;
   image: string;
-  source: string;
   url: string;
-  yield: number;
   dietLabels: string[];
+  portions: number;
   healthLabels: string[];
   cautions: string[];
   ingredientLines: string[];
-  ingredients: Ingredient[];
   calories: number;
-  totalWeight: number;
   totalTime: number;
+  cuisineType: string[];
   totalNutrients: Nutrients;
-  totalDaily: Nutrients;
-  digest: Digest[];
+  missingIngredients: string[];
 }
 
-export interface Ingredient {
-  text: string;
-  weight: number;
-  foodId?: string;
-}
 
 export interface NutrientDetail {
   label: string;
@@ -32,14 +23,4 @@ export interface NutrientDetail {
 
 export interface Nutrients {
   [key: string]: NutrientDetail;
-}
-
-export interface Digest {
-  label: string;
-  tag: string;
-  schemaOrgTag: string | null;
-  total: number;
-  hasRDI: boolean;
-  daily: number;
-  unit: string;
 }
