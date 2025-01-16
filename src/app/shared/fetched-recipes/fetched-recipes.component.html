@@ -1,1 +1,7 @@
-<p>fetched-recipes works!</p>
+<div class="container">
+
+  <div *ngFor="let recipe of recipes">
+    <app-recipe-component [recipe]="recipe"></app-recipe-component>
+  </div>
+
+</div>

@@ -1,51 +1,48 @@
 <div class="container">
   <div class="autocomplete-container">
     <div class="search-bar">
-      <input
-        id="ingredient-name"
-        type="text"
-        [formControl]="searchText"
-        class="form-control search-input"
-      />
+      <input id="ingredient-name"
+             type="text"
+             [formControl]="searchControl"
+             class="form-control search-input"
+             placeholder="Add your ingredients" />
     </div>
 
-    <ul *ngIf="filteredItems.length > 0" class="suggestions-list">
-      <li *ngFor="let item of filteredItems" (click)="selectItem(item)">
-        {{ item }}
+    <ul *ngIf="showSuggestions && filteredIngredients.length > 0" class="suggestions-list">
+      <li *ngFor="let ingredient of filteredIngredients; let i = index"
+          [class.selected]="i === selectedIndex"
+          (click)="addIngredient(ingredient)">
+        {{ ingredient }}
       </li>
     </ul>
   </div>
 
-  <button (click)="fetchRecipes()" class="btn btn-primary">Search</button>
-  
+  <button (click)="startSearch()" class="btn btn-primary">Search</button>
+
   <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      Pick a cuisine
+      {{chosenCuisine}}
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
       <li *ngFor="let cuisine of cuisines"><a class="dropdown-item" href="#" (click)="selectCuisine(cuisine)">{{cuisine}}</a></li>
     </ul>
   </div>
 
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="strictIngredients" id="flexCheckDefault" #strictIngredients>
-    <label class="form-check-label" for="flexCheckDefault">
-      Show recipes with ONLY chosen ingredients
-    </label>
-  </div>
-
 </div>
-
-<p>{{strictIngredients}}</p>
-
-<p *ngFor="let recipe of recipes">{{recipe}}</p>
-
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="flexCheckDefault" (change)="toggleStrictSearch($event)">
+      <label class="form-check-label" for="flexCheckDefault">
+        Show recipes with ONLY chosen ingredients
+      </label>
+    </div>
 
 <div>
-  <ul class="search-list chosen-ingredients-container">
-    <li *ngFor="let item of chosenIngredients; let i = index" class="list-item">
-      <button (click)="removeItem(i)" class="btn btn-sm">X</button>
+  <ul class="search-list chosen-ingredients-container" *ngIf="chosenIngredients?.length">
+    <li *ngFor="let item of chosenIngredients; trackBy: trackByFn" class="list-item">
+      <button (click)="removeItem(item)" class="btn btn-sm">X</button>
       <span>{{ item }}</span>
     </li>
   </ul>
 </div>
+
+<p *ngFor="let recipe of fetchedRecipes">{{recipe.label}}</p>

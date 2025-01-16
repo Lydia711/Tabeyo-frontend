@@ -1,0 +1,41 @@
+@use '../../../_variables.scss' as *;
+.offcanvas {
+  background-image: url('../../../assets/images/marble.jpg');
+  background-size: cover; /* Ensures the image covers the whole panel */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+.image-cropper {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-cropper img{
+    width: 200px;
+    height: 200px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+    width: 250px;
+    text-align: center;
+
+    border-radius: 10px;
+    box-shadow: 0px 15px 15px 0px $grey-shadow;
+
+    &:hover{
+        background-color: $pastel-blue;
+    }
+}
+.text p{
+    color: $grey-text;
+}
+
+.time{
+    font-style: italic;
+}

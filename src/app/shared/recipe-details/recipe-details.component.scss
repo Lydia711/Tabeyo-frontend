@@ -1,0 +1,55 @@
+@use '../../../_variables' as *;
+
+.recipe-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image{
+    display:inline;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+}
+
+.image-cropper {
+  width: $image-diameter;
+  height: $image-diameter;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.panel {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: $panel-top-margin;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 40px;
+}
+.panel-content {
+  margin-top: $panel-content-top-margin;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers horizontally */
+}
+.label{
+    padding-top: 20px;
+}
+span{
+   padding: 0px 10px 0px 10px;
+}
+.recipe-info {
+  padding-left: 100px;
+}
+.ingredients{
+    padding-bottom: 15px;
+}

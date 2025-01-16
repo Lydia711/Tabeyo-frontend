@@ -1,0 +1,71 @@
+<div class="recipe-details">
+
+  <div class="image-cropper">
+    <img class="image" src="https://sweetcayenne.com/wp-content/uploads/2016/07/coconut-rice-pudding-mango-thai-basil-8.jpg" />
+  </div>
+
+  <div class="panel">
+    <div class="panel-content">
+      <h2 class="label">{{recipe.label}}</h2>
+
+      <div style="display: flex; justify-content: center; gap:4px">
+
+
+        <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
+        <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
+        <p>-</p>
+        <p class="energy" *ngIf="recipe.totalNutrients['ENERC_KCAL'] !== null">{{recipe.calories}} {{recipe.totalNutrients["ENERC_KCAL"].unit}}</p>
+
+        <!--<p *ngIf="recipe.missingIngredients.length !== 0">missing ingredients: {{recipe.missingIngredients}}</p>-->
+
+      </div>
+      <p>Yields {{recipe.portions}} portions</p>
+
+      <div style="display: flex; justify-content: space-between; flex-direction: row">
+
+
+        @for(nutrient of recipe.totalNutrients | keyvalue; track nutrient.key; let i = $index) {
+        @if(macroNutrients.includes(nutrient.key)) {
+        <p class="inline">
+          {{nutrient.value.label}}: {{nutrient.value.quantity | number:'1.0-0'}}{{nutrient.value.unit}}
+          @if(i < 3) {
+          <span>|</span>
+          }
+        </p>
+        }
+        }
+
+      </div>
+    </div>
+    <div class="recipe-info">
+      <div class="ingredients">
+
+        @for(step of recipe.ingredientLines; track $index){
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            {{step}}
+          </label>
+        </div>
+        }
+      </div>
+
+      <a style="padding-top: 10px" [href]="recipe.url">Full Recipe</a>
+      <br/>
+
+      <p>Cautions: </p>
+      @for(caution of recipe.cautions; track $index){
+      <span>{{caution}}<span *ngIf="$index < recipe.cautions.length - 1">, </span></span>
+      }
+
+      <br/>
+
+      <p>Health Labels:</p>
+      @for(healthLabel of recipe.healthLabels; track $index){
+      <span>{{healthLabel}}<span *ngIf="$index < recipe.healthLabels.length - 1">, </span></span>
+      }
+    </div>
+  </div>
+
+
+</div>

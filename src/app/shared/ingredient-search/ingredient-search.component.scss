@@ -8,19 +8,29 @@ li span{
     margin: 1rem;
 }
 
-.chosen-ingredients-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    li{
-        background-color: $grey-background;
-        border-radius: 10px;
-        padding: 7px;
+.chosen-ingredients-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 30px;
 
-        &.hover{
-            background-color: $grey-background-on-hover;
-        }
+  li {
+    margin-right: 10px;
+    background-color: $button-color;
+    color: white;
+    border-radius: 10px;
+    padding: 7px;
+    transition: 0.3s;
+
+    button {
+      color: white;
+      transition: 0.3s;
     }
+
+    &:hover {
+      background-color: red;
+    }
+  }
 }
 
 .container{
@@ -59,7 +69,15 @@ li span{
     background-color: #f0f0f0;
 }
 
-.dropdown{
-    z-index: 1;
-    margin: 2rem 0rem 2rem 0.7rem;
+.dropdown {
+  z-index: 1;
+  margin: 2rem 0rem 2rem 0.7rem;
+
+  .dropdown-menu {
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
+}
+.form-check{
+    margin-left: 1rem;
 }
