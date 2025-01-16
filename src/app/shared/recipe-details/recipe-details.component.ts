@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Recipe } from '../../models/recipe.model';
-import { splitMinutes, getCautions } from '../../../utils/helperFunctions';
+import { splitMinutes, getCautions, getHealthLabels } from '../../../utils/helperFunctions';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,8 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class RecipeDetailsComponent {
 
-  splitMinutes = splitMinutes;
-  getCautions = getCautions;
   macroNutrients: string[] = ['PROCNT', 'FAT', 'CHOCDF'];
 
   @Input() recipe: Recipe = {
@@ -31,5 +29,8 @@ export class RecipeDetailsComponent {
     missingIngredients: []
   };
 
+  splitMinutes = splitMinutes;
+  getCautions = getCautions;
+  getHealthLabels = getHealthLabels;
 
 }

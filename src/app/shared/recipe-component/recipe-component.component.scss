@@ -1,10 +1,5 @@
 @use '../../../_variables.scss' as *;
-.offcanvas {
-  background-image: url('../../../assets/images/marble.jpg');
-  background-size: cover; /* Ensures the image covers the whole panel */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-}
+
 .image-cropper {
   width: 200px;
   height: 200px;
@@ -21,7 +16,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 300px;
+    height: 350px;
     width: 250px;
     text-align: center;
 
@@ -32,10 +27,25 @@
         background-color: $pastel-blue;
     }
 }
-.text p{
+
+.text {
+  h5 {
+    margin-bottom: 4px; /* Adjust as needed */
+  }
+
+  div {
+    margin-bottom: 4px; /* Adjust spacing between the flexbox and other elements */
+  }
+
+  p {
+    margin: 4px 0; /* Adjust vertical spacing for all paragraphs */
     color: $grey-text;
+  }
 }
 
-.time{
-    font-style: italic;
+.cautions {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
 }

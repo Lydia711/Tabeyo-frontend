@@ -1,5 +1,10 @@
 @use '../../../_variables' as *;
-
+.offcanvas {
+  background-image: url('../../../assets/images/marble.jpg');
+  background-size: cover; /* Ensures the image covers the whole panel */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+}
 .recipe-details {
   display: flex;
   flex-direction: column;

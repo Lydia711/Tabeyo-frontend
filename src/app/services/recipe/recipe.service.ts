@@ -17,11 +17,17 @@ export class RecipeService {
     const httpParams: Record<string, string> = {};
 
     if (searchParams.ingredients?.length) {
+      //To-do: undo testing code
       httpParams['ingredients'] = searchParams.ingredients.join(',');
+//        "mango, coconut, rice, green chilli, cashews, cucumbers, fish sauce, lime juice";//
     }
 
     if (searchParams.cuisine) {
       httpParams['cuisine'] = searchParams.cuisine;
+    }
+
+    if (searchParams.healthLabels.size > 0) {
+      httpParams['health'] = Array.from(searchParams.healthLabels).join(',');
     }
 
     const headers = {
@@ -37,7 +43,6 @@ export class RecipeService {
         if (!response?.recipes) {
           return [];
         }
-
         return response.recipes.map(recipe => {
           const mappedRecipe: Recipe = {
             label: recipe.label,

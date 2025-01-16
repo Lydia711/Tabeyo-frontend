@@ -28,19 +28,25 @@
     </ul>
   </div>
 
-</div>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="flexCheckDefault" (change)="toggleStrictSearch($event)">
-      <label class="form-check-label" for="flexCheckDefault">
-        Show recipes with ONLY chosen ingredients
-      </label>
-    </div>
+  <app-multi-select-dropdown [items]="healthLabels" title="Diet Restrictions" (selectionChange)="onDietaryRestrictionChange($event)"></app-multi-select-dropdown>
 
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" id="flexCheckDefault" (change)="toggleStrictSearch($event)">
+  <label class="form-check-label" for="flexCheckDefault">
+    Show recipes with ONLY chosen ingredients
+  </label>
+</div>
 <div>
   <ul class="search-list chosen-ingredients-container" *ngIf="chosenIngredients?.length">
     <li *ngFor="let item of chosenIngredients; trackBy: trackByFn" class="list-item">
       <button (click)="removeItem(item)" class="btn btn-sm">X</button>
-      <span>{{ item }}</span>
+      <span>
+        {{
+ item
+        }}
+      </span>
     </li>
   </ul>
 </div>

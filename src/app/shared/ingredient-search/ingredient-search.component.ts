@@ -5,13 +5,15 @@ import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../models/recipe.model';
 import { SearchParams } from '../../models/search-params.model';
 import { HttpClient } from '@angular/common/http';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import * as AvailableIngredients from '../../../assets/ingredients.json';
 import * as Cuisines from '../../../assets/cuisines.json';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import * as Health from '../../../assets/health.json';
+import { MultiSelectDropdownComponent } from '../multi-select-dropdown/multi-select-dropdown.component';
 
 @Component({
   selector: 'app-ingredient-search',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MultiSelectDropdownComponent],
   templateUrl: './ingredient-search.component.html',
   styleUrl: './ingredient-search.component.scss',
 })
@@ -26,7 +28,9 @@ export class IngredientSearchComponent implements OnInit {
   selectedIndex = -1;
   chosenIngredients: string[] = [];
   chosenCuisine:string = "Pick a cuisine";
-  cuisines:string[] = [];
+  cuisines: string[] = [];
+  healthLabels: string[] = [];
+  selectedHealthLabels: Set<string> = new Set<string>();
 
   fetchedRecipes: Recipe[] = [];
   strictSearch: boolean = false;
@@ -34,6 +38,7 @@ export class IngredientSearchComponent implements OnInit {
   ngOnInit(): void {
     this.loadCuisines();
     this.loadIngredients();
+    this.loadHealthLabels();
 
     this.searchControl.valueChanges.pipe(
       debounceTime(200),
@@ -44,11 +49,14 @@ export class IngredientSearchComponent implements OnInit {
   }
 
   private async loadIngredients() {
-    this.ingredients = AvailableIngredients.ingredients;
+    this.ingredients = (AvailableIngredients as any).ingredients;
     this.filteredIngredients = [...this.ingredients]; 
   }
   private async loadCuisines() {
     this.cuisines = (Cuisines as any).cuisines;
+  }
+  private async loadHealthLabels() {
+    this.healthLabels = (Health as any).health;
   }
 
   private filterIngredients(searchTerm: string) {
@@ -67,7 +75,6 @@ export class IngredientSearchComponent implements OnInit {
 
   selectCuisine(cuisine: string): void {
     this.chosenCuisine = cuisine;
-    console.log(`Selected Cuisine: ${this.chosenCuisine}`);
   }
 
   addIngredient(ingredient: string) {
@@ -97,19 +104,18 @@ export class IngredientSearchComponent implements OnInit {
     if (!this.chosenIngredients) {
       return;
     }
-
-    /*if (!Array.isArray(this.chosenIngredients)) {
-      console.log('chosenIngredients is not an array:', this.chosenIngredients);
-      return;
-    } else {
-      console.log("it's an array")
-    }*/
+    console.log("params are: ", this.chosenIngredients, ", ", this.cuisines.includes(this.chosenCuisine) ? this.chosenCuisine : "", ", ", this.strictSearch);
 
     var params: SearchParams = {
       ingredients: [...this.chosenIngredients],
-      cuisine: this.cuisines.includes(this.chosenCuisine) ? this.chosenCuisine : "",
-      strictSearch: this.strictSearch
+      cuisine: (this.cuisines.includes(this.chosenCuisine) && this.chosenCuisine != "Anywhere") ? this.chosenCuisine : "",
+      strictSearch: this.strictSearch,
+      healthLabels: this.selectedHealthLabels
     }
     this.searchTriggered.emit(params);
+  }
+
+  onDietaryRestrictionChange(selectedHealthLabels: Set<string>) {
+    this.selectedHealthLabels = selectedHealthLabels;
   }
 }

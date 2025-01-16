@@ -1,71 +1,78 @@
-<div class="recipe-details">
 
-  <div class="image-cropper">
-    <img class="image" src="https://sweetcayenne.com/wp-content/uploads/2016/07/coconut-rice-pudding-mango-thai-basil-8.jpg" />
+<div class="offcanvas offcanvas-end w-50" [id]="'offcanvas-' + recipe.url" tabindex="-1" [attr.aria-labelledby]="'offcanvasLabel-' + recipe.url">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
+  <div class="offcanvas-body">
 
-  <div class="panel">
-    <div class="panel-content">
-      <h2 class="label">{{recipe.label}}</h2>
+    <div class="recipe-details">
 
-      <div style="display: flex; justify-content: center; gap:4px">
-
-
-        <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
-        <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
-        <p>-</p>
-        <p class="energy" *ngIf="recipe.totalNutrients['ENERC_KCAL'] !== null">{{recipe.calories}} {{recipe.totalNutrients["ENERC_KCAL"].unit}}</p>
-
-        <!--<p *ngIf="recipe.missingIngredients.length !== 0">missing ingredients: {{recipe.missingIngredients}}</p>-->
-
+      <div class="image-cropper">
+        <img class="image" [src]="recipe.image" />
       </div>
-      <p>Yields {{recipe.portions}} portions</p>
 
-      <div style="display: flex; justify-content: space-between; flex-direction: row">
+      <div class="panel">
+        <div class="panel-content">
+          <h2 class="label">{{recipe.label}}</h2>
+
+          <div style="display: flex; justify-content: center; gap:4px">
 
 
-        @for(nutrient of recipe.totalNutrients | keyvalue; track nutrient.key; let i = $index) {
-        @if(macroNutrients.includes(nutrient.key)) {
-        <p class="inline">
-          {{nutrient.value.label}}: {{nutrient.value.quantity | number:'1.0-0'}}{{nutrient.value.unit}}
-          @if(i < 3) {
-          <span>|</span>
-          }
-        </p>
-        }
-        }
+            <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
+            <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
+            <p>-</p>
+            <p class="energy" *ngIf="recipe.totalNutrients['ENERC_KCAL'] !== null">{{recipe.calories}} {{recipe.totalNutrients["ENERC_KCAL"].unit}}</p>
 
-      </div>
-    </div>
-    <div class="recipe-info">
-      <div class="ingredients">
+            <!--<p *ngIf="recipe.missingIngredients.length !== 0">missing ingredients: {{recipe.missingIngredients}}</p>-->
 
-        @for(step of recipe.ingredientLines; track $index){
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            {{step}}
-          </label>
+          </div>
+          <p>Yields {{recipe.portions}} portions</p>
+
+          <div style="display: flex; justify-content: space-between; flex-direction: row">
+
+            @for(nutrient of recipe.totalNutrients | keyvalue; track nutrient.key; let i = $index) {
+            @if(macroNutrients.includes(nutrient.key)) {
+            <p class="inline">
+              {{nutrient.value.label}}: {{nutrient.value.quantity | number:'1.0-0'}}{{nutrient.value.unit}}
+              @if(i < 3) {
+              <span>|</span>
+              }
+            </p>
+            }
+            }
+
+          </div>
         </div>
-        }
+        <div class="recipe-info">
+
+          @for(ingredientLine of recipe.ingredientLines; track $index){
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+            <label [style.color]="recipe.missingIngredients.includes(ingredientLine) ? 'red' : 'black'" class="form-check-label" for="flexCheckDefault">
+              {{ingredientLine}}
+            </label>
+
+          </div>
+          }
+
+          <a style="padding-top: 10px" [href]="recipe.url" target="_blank" rel="noopener noreferrer">Full Recipe</a>
+          <br />
+
+          <div *ngIf="recipe.cautions.length !== 0">
+            <p>Cautions: </p>
+            <p>{{getCautions(recipe)}}</p>
+          </div>
+          //stopped at fixing the contains and health labels
+          <br />
+
+          <div *ngIf="recipe.healthLabels.length !== 0">
+            <p>Cautions: </p>
+            <p>{{getHealthLabels(recipe)}}</p>
+          </div>
+
+        </div>
       </div>
-
-      <a style="padding-top: 10px" [href]="recipe.url">Full Recipe</a>
-      <br/>
-
-      <p>Cautions: </p>
-      @for(caution of recipe.cautions; track $index){
-      <span>{{caution}}<span *ngIf="$index < recipe.cautions.length - 1">, </span></span>
-      }
-
-      <br/>
-
-      <p>Health Labels:</p>
-      @for(healthLabel of recipe.healthLabels; track $index){
-      <span>{{healthLabel}}<span *ngIf="$index < recipe.healthLabels.length - 1">, </span></span>
-      }
     </div>
   </div>
-
-
 </div>
