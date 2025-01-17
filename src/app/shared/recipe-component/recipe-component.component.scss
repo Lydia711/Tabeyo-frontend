@@ -1,0 +1,52 @@
+@use '../../../_variables.scss' as *;
+
+.image-cropper {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-cropper img{
+    width: 200px;
+    height: 200px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 350px;
+    width: 250px;
+    text-align: center;
+    background-color: white;
+
+    border-radius: 10px;
+    box-shadow: 0px 15px 15px 0px $grey-shadow;
+
+    &:hover{
+        background-color: $pastel-blue;
+    }
+}
+
+.text {
+  h5 {
+    margin-bottom: 4px; /* Adjust as needed */
+  }
+
+  div {
+    margin-bottom: 4px; /* Adjust spacing between the flexbox and other elements */
+  }
+
+  p {
+    margin: 4px 0; /* Adjust vertical spacing for all paragraphs */
+    color: $grey-text;
+  }
+}
+
+.cautions {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
