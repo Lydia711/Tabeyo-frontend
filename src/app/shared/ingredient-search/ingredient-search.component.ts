@@ -10,10 +10,11 @@ import * as AvailableIngredients from '../../../assets/ingredients.json';
 import * as Cuisines from '../../../assets/cuisines.json';
 import * as Health from '../../../assets/health.json';
 import { MultiSelectDropdownComponent } from '../multi-select-dropdown/multi-select-dropdown.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'app-ingredient-search',
-  imports: [ReactiveFormsModule, CommonModule, MultiSelectDropdownComponent],
+  imports: [ReactiveFormsModule, CommonModule, MultiSelectDropdownComponent, DropdownComponent],
   templateUrl: './ingredient-search.component.html',
   styleUrl: './ingredient-search.component.scss',
 })
@@ -27,7 +28,7 @@ export class IngredientSearchComponent implements OnInit {
   showSuggestions = false;
   selectedIndex = -1;
   chosenIngredients: string[] = [];
-  chosenCuisine:string = "Pick a cuisine";
+  selectedCuisine:string = "";
   cuisines: string[] = [];
   healthLabels: string[] = [];
   selectedHealthLabels: Set<string> = new Set<string>();
@@ -74,7 +75,7 @@ export class IngredientSearchComponent implements OnInit {
   }
 
   selectCuisine(cuisine: string): void {
-    this.chosenCuisine = cuisine;
+    this.selectedCuisine = cuisine;
   }
 
   addIngredient(ingredient: string) {
@@ -104,11 +105,11 @@ export class IngredientSearchComponent implements OnInit {
     if (!this.chosenIngredients) {
       return;
     }
-    console.log("params are: ", this.chosenIngredients, ", ", this.cuisines.includes(this.chosenCuisine) ? this.chosenCuisine : "", ", ", this.strictSearch);
+    console.log("params are: ", this.chosenIngredients, ", ", this.cuisines.includes(this.selectedCuisine) ? this.selectedCuisine : "", ", ", this.strictSearch);
 
     var params: SearchParams = {
       ingredients: [...this.chosenIngredients],
-      cuisine: (this.cuisines.includes(this.chosenCuisine) && this.chosenCuisine != "Anywhere") ? this.chosenCuisine : "",
+      cuisine: (this.cuisines.includes(this.selectedCuisine) && this.selectedCuisine != "Anywhere") ? this.selectedCuisine : "",
       strictSearch: this.strictSearch,
       healthLabels: this.selectedHealthLabels
     }
@@ -117,5 +118,8 @@ export class IngredientSearchComponent implements OnInit {
 
   onDietaryRestrictionChange(selectedHealthLabels: Set<string>) {
     this.selectedHealthLabels = selectedHealthLabels;
+  }
+  onCuisineChange(selectedCuisine: string) {
+    this.selectedCuisine = selectedCuisine;
   }
 }
