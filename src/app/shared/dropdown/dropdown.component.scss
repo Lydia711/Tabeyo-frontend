@@ -1,0 +1,9 @@
+.dropdown {
+  z-index: 1;
+  margin: 2rem 0rem 2rem 0.7rem;
+
+  .dropdown-menu {
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
+}
