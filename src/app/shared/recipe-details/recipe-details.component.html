@@ -17,13 +17,9 @@
 
           <div style="display: flex; justify-content: center; gap:4px">
 
-
             <p class="hours" *ngIf="splitMinutes(recipe).hours != 0">{{splitMinutes(recipe).hours}} hrs</p>
             <p class="minutes" *ngIf="splitMinutes(recipe).minutes != 0">{{splitMinutes(recipe).minutes}} Mins</p>
-            <p>-</p>
             <p class="energy" *ngIf="recipe.totalNutrients['ENERC_KCAL'] !== null">{{recipe.calories}} {{recipe.totalNutrients["ENERC_KCAL"].unit}}</p>
-
-            <!--<p *ngIf="recipe.missingIngredients.length !== 0">missing ingredients: {{recipe.missingIngredients}}</p>-->
 
           </div>
           <p>Yields {{recipe.portions}} portions</p>
@@ -43,12 +39,13 @@
 
           </div>
         </div>
+
         <div class="recipe-info">
 
           @for(ingredientLine of recipe.ingredientLines; track $index){
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
             <label [style.color]="recipe.missingIngredients.includes(ingredientLine) ? 'red' : 'black'" class="form-check-label" for="flexCheckDefault">
               {{ingredientLine}}
             </label>
@@ -56,21 +53,22 @@
           </div>
           }
 
-          <a style="padding-top: 10px" [href]="recipe.url" target="_blank" rel="noopener noreferrer">Full Recipe</a>
           <br />
 
-          <div *ngIf="recipe.cautions.length !== 0">
-            <p>Cautions: </p>
-            <p>{{getCautions(recipe)}}</p>
-          </div>
-          <!--//stopped at fixing the contains and health labels-->
-          <br />
+          <div class="sub-recipe-info">
+            <a class="link" [href]="recipe.url" target="_blank" rel="noopener noreferrer">Full Recipe</a>
 
-          <div *ngIf="recipe.healthLabels.length !== 0">
-            <p>Cautions: </p>
-            <p>{{getHealthLabels(recipe)}}</p>
-          </div>
+            <div *ngIf="recipe.cautions.length !== 0">
+              <p>Cautions: </p>
+              <p>{{getCautions(recipe)}}</p>
+            </div>
 
+            <div *ngIf="recipe.healthLabels.length !== 0">
+              <p>Health Labels: </p>
+              <p>{{getHealthLabels(recipe)}}</p>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

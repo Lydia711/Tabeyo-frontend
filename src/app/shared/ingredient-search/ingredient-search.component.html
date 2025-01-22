@@ -35,9 +35,7 @@
     <li *ngFor="let item of chosenIngredients; trackBy: trackByFn" class="list-item">
       <button (click)="removeItem(item)" class="btn btn-sm">X</button>
       <span>
-        {{
- item
-        }}
+        {{item}}
       </span>
     </li>
   </ul>

@@ -54,7 +54,13 @@ span{
 }
 .recipe-info {
   padding-left: 100px;
+
 }
 .ingredients{
     padding-bottom: 15px;
+}
+.sub-recipe-info{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
