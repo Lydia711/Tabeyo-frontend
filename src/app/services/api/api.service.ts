@@ -19,8 +19,6 @@ export class ApiService {
     const queryParams = httpParams.toString();
     const fullUrl = `${this.apiUrl}/${url}?${queryParams}`;
 
-    console.log('Full API URL:', fullUrl); // Log the full URL
-
     return this.http.get<T>(`${this.apiUrl}/${url}`, { params: httpParams, headers: httpHeaders })
       .pipe(
 

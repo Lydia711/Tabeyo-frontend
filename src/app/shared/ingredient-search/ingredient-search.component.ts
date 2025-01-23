@@ -22,7 +22,7 @@ export class IngredientSearchComponent implements OnInit {
 
   @Output() searchTriggered = new EventEmitter<SearchParams>();
 
-  ingredients: string[] = [];
+  ingredients: Set<string> = new Set<string>();
   filteredIngredients: string[] = [];
   searchControl = new FormControl('');
   showSuggestions = false;
@@ -62,15 +62,17 @@ export class IngredientSearchComponent implements OnInit {
 
   private filterIngredients(searchTerm: string) {
     if (!searchTerm) {
-      this.filteredIngredients = [...this.ingredients];
+      this.filteredIngredients = Array.from(this.ingredients).map(ingredient => this.formatIngredient(ingredient));
       this.showSuggestions = false;
       return;
     }
 
     searchTerm = searchTerm.toLowerCase();
-    this.filteredIngredients = this.ingredients.filter(ingredient =>
-      ingredient.toLowerCase().includes(searchTerm)
-    );
+    this.filteredIngredients = Array.from(this.ingredients)
+      .filter(ingredient => ingredient.toLowerCase().includes(searchTerm))
+      .map(ingredient => this.formatIngredient(ingredient));
+
+
     this.showSuggestions = true;
   }
 
@@ -100,7 +102,6 @@ export class IngredientSearchComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.strictSearch = inputElement.checked;
   }
-  // TO-DO: fetch recipes
   startSearch() {
     if (!this.chosenIngredients) {
       return;
@@ -108,7 +109,7 @@ export class IngredientSearchComponent implements OnInit {
     console.log("params are: ", this.chosenIngredients, ", ", this.cuisines.includes(this.selectedCuisine) ? this.selectedCuisine : "", ", ", this.strictSearch);
 
     var params: SearchParams = {
-      ingredients: [...this.chosenIngredients],
+      ingredients: new Set(this.chosenIngredients),
       cuisine: (this.cuisines.includes(this.selectedCuisine) && this.selectedCuisine != "Anywhere") ? this.selectedCuisine : "",
       strictSearch: this.strictSearch,
       healthLabels: this.selectedHealthLabels
@@ -121,5 +122,11 @@ export class IngredientSearchComponent implements OnInit {
   }
   onCuisineChange(selectedCuisine: string) {
     this.selectedCuisine = selectedCuisine;
+  }
+  private formatIngredient(item: string): string {
+    return item
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   }
 }

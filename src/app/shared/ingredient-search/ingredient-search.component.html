@@ -30,8 +30,8 @@
     Show recipes with ONLY chosen ingredients
   </label>
 </div>
-<div>
-  <ul class="search-list chosen-ingredients-container" *ngIf="chosenIngredients?.length">
+<div class="chosen-ingredients-container">
+  <ul class="search-list chosen-ingredients-list" *ngIf="chosenIngredients?.length">
     <li *ngFor="let item of chosenIngredients; trackBy: trackByFn" class="list-item">
       <button (click)="removeItem(item)" class="btn btn-sm">X</button>
       <span>

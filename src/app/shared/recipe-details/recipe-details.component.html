@@ -30,7 +30,8 @@
             @if(macroNutrients.includes(nutrient.key)) {
             <p class="inline">
               {{nutrient.value.label}}: {{nutrient.value.quantity | number:'1.0-0'}}{{nutrient.value.unit}}
-              @if(i < 3) {
+
+              @if(i < 10) {
               <span>|</span>
               }
             </p>
@@ -38,6 +39,8 @@
             }
 
           </div>
+
+
         </div>
 
         <div class="recipe-info">
@@ -58,14 +61,9 @@
           <div class="sub-recipe-info">
             <a class="link" [href]="recipe.url" target="_blank" rel="noopener noreferrer">Full Recipe</a>
 
-            <div *ngIf="recipe.cautions.length !== 0">
-              <p>Cautions: </p>
-              <p>{{getCautions(recipe)}}</p>
-            </div>
-
-            <div *ngIf="recipe.healthLabels.length !== 0">
-              <p>Health Labels: </p>
-              <p>{{getHealthLabels(recipe)}}</p>
+            <div class="health-tags">
+              <p class="caution" *ngIf="recipe.cautions.length !== 0">Cautions: {{getCautions(recipe)}}</p>
+              <p *ngIf="recipe.healthLabels.length !== 0">Health Labels: {{getHealthLabels(recipe)}}</p>
             </div>
 
           </div>

@@ -16,10 +16,9 @@ export class RecipeService {
 
     const httpParams: Record<string, string> = {};
 
-    if (searchParams.ingredients?.length) {
-      //To-do: undo testing code
-      httpParams['ingredients'] = searchParams.ingredients.join(',');
-//        "mango, coconut, rice, green chilli, cashews, cucumbers, fish sauce, lime juice";//
+    if (searchParams.ingredients?.size) {
+      httpParams['ingredients'] = Array.from(searchParams.ingredients).join(',')
+      console.log("print ingreidents: ", httpParams['ingredients']);
     }
 
     if (searchParams.cuisine) {

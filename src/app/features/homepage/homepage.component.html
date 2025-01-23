@@ -1,10 +1,7 @@
 
 
 <div class="container">
-    <div class="ingredient-filter">
-        <app-ingredient-search class="search-bar" (searchTriggered)="handleSearch($event)"></app-ingredient-search>
-    </div>
-  <p>recipes size: {{recipes.length}}</p>
+  <app-ingredient-search class="search-bar" (searchTriggered)="handleSearch($event)"></app-ingredient-search>
   <app-fetched-recipes [recipes]="recipes"></app-fetched-recipes>
 
   <div class="center">

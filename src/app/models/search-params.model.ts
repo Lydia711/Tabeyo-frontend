@@ -1,5 +1,5 @@
 export interface SearchParams {
-  ingredients: string[];
+  ingredients: Set<string>;
   cuisine: string;
   strictSearch: boolean;
   healthLabels: Set<string>;

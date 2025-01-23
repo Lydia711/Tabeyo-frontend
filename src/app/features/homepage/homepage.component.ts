@@ -24,6 +24,9 @@ export class HomepageComponent {
   async handleSearch(searchParams: SearchParams) {
 
     this.isLoading = true;
+    this.recipeFetchError = false;
+    this.noRecipesFatched = false;
+
 
     try {
       const recipes = await this.recipeService.getRecipes(searchParams, "").subscribe({

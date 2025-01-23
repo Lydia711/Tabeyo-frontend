@@ -7,16 +7,12 @@
 }
 
 .center{
-    //padding: 40rem;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10rem;
 }
-.spinner {
-  margin-left: auto;
-  margin-right: auto;
-}
-.no-recipes {
+
+.no-recipes, .spinner {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,4 +21,7 @@
   svg{
       margin-bottom: 1rem;
   }
+}
+.search-bar {
+  margin-bottom: 1rem;
 }
