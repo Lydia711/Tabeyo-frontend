@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://github.com/Lydia711/Tabeyo-frontend/blob/main/src/assets/images/tabeyoLogo.png" style="width:400px;height:500px;">
+  <img src="https://github.com/Lydia711/Tabeyo-frontend/blob/main/src/assets/images/tabeyoLogo.png" style="width:450px;height:300px;">
 </p>
 
 ## About Tabeyo
