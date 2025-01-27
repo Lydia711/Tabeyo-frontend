@@ -87,6 +87,7 @@ Currently, Tabeyo is a solo project by [Lydia Youssef](https://github.com/Lydia7
 Lydia Youssef - [LinkedIn](https://www.linkedin.com/in/lydia-youssef-4b5831176/)
 <br>
 For any questions or recommendations, feel free to discuss it with me on LinkedIn or Github!
+<br>
 Project Links: [Tabeyo frontend](https://github.com/Lydia711/Tabeyo-frontend) and [Tabeyo backend](https://github.com/Lydia711/Tabeyo-backend)
 
 
