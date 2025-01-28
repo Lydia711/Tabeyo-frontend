@@ -51,9 +51,17 @@ This will run the app on http://localhost:4200/
 ## Usage
 
 
-//TO-Do: Add a gif of Tabeyo at work
-//one of it with strict search, one without
+### Regular Recipe Search
 
+<p align="center">
+  <img src="https://github.com/Lydia711/Tabeyo-frontend/blob/main/src/assets/gifs/searchDemo.gif">
+</p>
+
+### Strict Recipe Search
+
+<p align="center">
+  <img src="https://github.com/Lydia711/Tabeyo-frontend/blob/main/src/assets/gifs/strictSearchDemo.gif">
+</p>
 
 ## Roadmap
 
