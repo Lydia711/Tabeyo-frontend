@@ -1,9 +1,8 @@
 
 
 <div class="container">
-  <div>
-    <p>test</p>
-    <img src="../../../assets/images/tabeyoLogo.png" alt="Company Logo">
+  <div class="logo">
+    <img src="../../../assets/images/tabeyoLogo.png" alt="Tabeyo Logo"  width="300" height="200">
   </div>
   <app-ingredient-search class="search-bar" (searchTriggered)="handleSearch($event)"></app-ingredient-search>
   <app-fetched-recipes [recipes]="recipes"></app-fetched-recipes>

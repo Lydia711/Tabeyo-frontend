@@ -3,7 +3,7 @@
   <img src="https://github.com/Lydia711/Tabeyo-frontend/blob/main/src/assets/images/tabeyoLogo.png" style="width:450px;height:300px;">
 </p>
 
-## About Tabeyo
+## About Tabeyo - Frontend
 
 With the abundance of websites made to ease the search of recipes, not many accomodate to the fact that it's difficult to have every ingredient available at hand. Therefore, Tabeyo is focused on finding recipes with only what's available in the fridge/pantry.
 
@@ -13,8 +13,6 @@ Here's why:
 * **Saving expired Ingredients:** You may have ingredients on the brink of expiration that want to use ASAP.
 
 This is the frontend portion of Tabeyo, make sure to check out the [README of the backend](https://github.com/Lydia711/Tabeyo-backend) portion for the backend setup.
-
-
 
 
 
@@ -44,7 +42,7 @@ Here's how to locally setup the frontend of Tabeyo:
    ```sh
    npm install
    ```
-4. Install NPM packages
+4. Compile the application
    ```sh
    ng serve
    ```
@@ -59,6 +57,7 @@ This will run the app on http://localhost:4200/
 
 ## Roadmap
 
+- [ ] Flexible screen size compatibility
 - [ ] Add Favorites List
 - [ ] Add Shopping List
 - [ ] Add 'Search by recipe name' feature
@@ -69,7 +68,7 @@ If you have an interesting idea to add, check out the Contributing section below
 
 ## Contributing
 
-If you have any idea or feature to add to the project to improve it, you are quite welcomed to contribute!
+If you have any ideas or features to add to the project to improve it, you are more than welcome to contribute!
 Make sure to follow the following simple steps to add your own amazing feature to Tabeyo:
 
 1. Fork the Project
